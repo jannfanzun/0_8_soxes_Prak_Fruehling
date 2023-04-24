@@ -16,6 +16,7 @@ body {
 
 #todo-form {
     margin-top: 3%;
+    margin-bottom: 3%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,4 +64,56 @@ body {
 
 #logout-btn:hover {
     background-color: #6d6d6d;
+}
+
+.delete-btn {
+    background-color: #F44336;
+    color: white;
+    border: none;
+    width: 4%;
+    padding: 5px 10px;
+    border-radius: 1rem;
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    left: 80%;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.edit-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    width: 4%;
+    padding: 5px 10px;
+    border-radius: 1rem;
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    margin-left: 2%;
+    left: 85%;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+.li-task {
+    margin-top: 1%;
+}
+
+#todo-list {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+#todo-list li {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #000000;
+    border-bottom-width: 80%;
+    color: black;
+    font-weight: bold;
 }
