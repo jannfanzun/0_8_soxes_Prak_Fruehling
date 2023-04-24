@@ -1,20 +1,24 @@
 function createTaskElement(task) {
+  const div = document.createElement("div");
+  div.classList.add("task");
+
   const p = document.createElement("p");
   p.innerText = task;
   p.classList.add("p-task");
+  div.append(p);
 
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "Delete";
   deleteButton.classList.add("delete-btn");
-  p.append(deleteButton);
+  div.append(deleteButton);
 
   const editButton = document.createElement("button");
   editButton.innerText = "Edit";
   editButton.classList.add("edit-btn");
-  p.append(editButton);
+  div.append(editButton);
 
   deleteButton.addEventListener("click", function () {
-    p.remove();
+    div.remove();
   });
 
   editButton.addEventListener("click", function () {
@@ -27,7 +31,7 @@ function createTaskElement(task) {
     p.innerText = newTask;
   });
 
-  return p;
+  return div;
 }
 
 function addTask() {
@@ -37,10 +41,10 @@ function addTask() {
     return;
   }
 
-  const p = createTaskElement(task);
+  const div = createTaskElement(task);
 
-  const ul = document.getElementById("todo-list");
-  ul.append(p);
+  const container = document.getElementById("todo-list");
+  container.append(div);
 
   document.getElementById("todo-inputBox").value = "";
 }
