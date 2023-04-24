@@ -5,15 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Merriweather&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Merriweather&family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
     <title>Todo</title>
   </head>
   <body>
-    <h1>Todo List</h1>
+    <h1 id="todo-title">Todo List</h1>
+    <span id="byspan"><i> soxes Praktikumswoche</i></span>
 
-
+    <form id="todo-form">
+      <input type="text" id="todo-inputBox" placeholder="add todo..." required/>
+      <button type="submit" id="addtask-btn" type="submit" onclick="">
+        Add Task
+      </button>
+      <button type="button" id="logout-btn" onclick="">Logout</button>
+    </form>
+    
     <script src="script.js"></script>
   </body>
 </html>

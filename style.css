@@ -1,5 +1,66 @@
 body {
-    display: flex;
+    font-family: 'Lato', sans-serif;
     width: 100%;
-    font-family: 'Lato', sans-serif
+    height: 100%;
+    background-color: #f2f2f2;
+}
+
+#todo-title {
+    text-align: center;
+    margin-top: 3%;
+    text-transform: uppercase;
+    text-shadow: 2px 1px 2px black;
+    font-size: 45px;
+    color: #f96d00;
+}
+
+#todo-form {
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#byspan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    text-decoration: underline 1px;
+    font-weight: 600;
+}
+
+#todo-form input {
+    padding: 15px;
+    width: 40%;
+    font-size: 16px;
+    border-radius: 1rem;
+}
+
+#todo-form button { 
+    margin-left: 2%;
+    cursor: pointer;
+    border-radius: 1rem;
+    padding: 15px;
+    width: 5%;
+    font-weight: bold;
+}
+
+#addtask-btn {
+    background-color: #5c636e;
+    color: white;
+}
+
+#addtask-btn:hover {
+    background-color: #919499;
+    color: black;
+}
+
+#logout-btn {
+    background-color: #393e46;
+    color: white;
+}
+
+#logout-btn:hover {
+    background-color: #6d6d6d;
 }
