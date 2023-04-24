@@ -43,7 +43,7 @@ body {
     cursor: pointer;
     border-radius: 1rem;
     padding: 15px;
-    width: 5%;
+    width: 7%;
     font-weight: bold;
 }
 
@@ -70,7 +70,7 @@ body {
     background-color: #F44336;
     color: white;
     border: none;
-    width: 4%;
+    width: 5%;
     padding: 5px 10px;
     border-radius: 1rem;
     cursor: pointer;
@@ -85,20 +85,19 @@ body {
     background-color: #2196F3;
     color: white;
     border: none;
-    width: 4%;
+    width: 5%;
     padding: 5px 10px;
     border-radius: 1rem;
     cursor: pointer;
     display: flex;
     position: absolute;
     margin-left: 2%;
-    left: 85%;
+    left: 84%;
     justify-content: center;
     font-weight: bold;
 }
 
-
-.li-task {
+.p-task {
     margin-top: 1%;
 }
 
@@ -107,7 +106,7 @@ body {
     margin: 0 auto;
 }
 
-#todo-list li {
+#todo-list p {
     display: flex;
     justify-content: left;
     align-items: center;

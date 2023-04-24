@@ -1,38 +1,46 @@
+function createTaskElement(task) {
+  const p = document.createElement("p");
+  p.innerText = task;
+  p.classList.add("p-task");
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "Delete";
+  deleteButton.classList.add("delete-btn");
+  p.append(deleteButton);
+
+  const editButton = document.createElement("button");
+  editButton.innerText = "Edit";
+  editButton.classList.add("edit-btn");
+  p.append(editButton);
+
+  deleteButton.addEventListener("click", function () {
+    p.remove();
+  });
+
+  editButton.addEventListener("click", function () {
+    const newTask = prompt("Edit task", p.innerText);
+
+    if (newTask === null || newTask.trim() === "") {
+      return;
+    }
+
+    p.innerText = newTask;
+  });
+
+  return p;
+}
+
 function addTask() {
-  // Eingabefeld auslesen
   const task = document.getElementById("todo-inputBox").value;
 
-  // Prüfen, ob Eingabefeld leer ist
   if (task.trim() === "") {
     return;
   }
 
-  // Neue Listen-Element erstellen
-  const li = document.createElement("li");
-  li.textContent = task;
-  li.classList.add("li-task");
+  const p = createTaskElement(task);
 
-  // Delete-Button erstellen und hinzufügen
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteButton.classList.add("delete-btn");
-  li.appendChild(deleteButton);
-
-  // Edit-Button erstellen und hinzufügen
-  const editButton = document.createElement("button");
-  editButton.textContent = "Edit";
-  editButton.classList.add("edit-btn");
-  li.appendChild(editButton);
-
-  // Funktion zum Entfernen des Listenelements hinzufügen
-  deleteButton.addEventListener("click", function () {
-    li.remove();
-  });
-
-  // Listen-Element zur Liste hinzufügen
   const ul = document.getElementById("todo-list");
-  ul.appendChild(li);
+  ul.append(p);
 
-  // Eingabefeld leeren
   document.getElementById("todo-inputBox").value = "";
 }
