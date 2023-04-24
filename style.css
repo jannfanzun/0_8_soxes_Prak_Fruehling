@@ -75,10 +75,11 @@ body {
     border-radius: 1rem;
     cursor: pointer;
     display: flex;
-    position: absolute;
+    position: relative;
     left: 80%;
     justify-content: center;
     font-weight: bold;
+    transform: translateY(-130%);
 }
 
 .edit-btn {
@@ -90,31 +91,32 @@ body {
     border-radius: 1rem;
     cursor: pointer;
     display: flex;
-    position: absolute;
+    position: relative;
     margin-left: 2%;
     left: 84%;
     justify-content: center;
     font-weight: bold;
+    transform: translateY(-228%);
 }
 
 
 #todo-list {
-    max-width: 80%;
-    margin: 0 auto;
+    margin: 10px auto;
+    max-width: 90%;
 }
 
-#todo-list p {
+#todo-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     border-bottom: 2px solid #000000;
-    border-bottom-width: 80%;
+    border-bottom-width: 1%;
     color: black;
     font-weight: bold;
 }
 
 .p-task {
-    flex: 1;
-    margin-top: 1%;
-  }
+    display: inline-block;
+    vertical-align: middle;  
+}

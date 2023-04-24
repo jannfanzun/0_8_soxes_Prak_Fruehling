@@ -2,7 +2,7 @@ function createTaskElement(task) {
   const div = document.createElement("div");
   div.classList.add("task");
 
-  const p = document.createElement("p");
+  const p = document.createElement("li");
   p.innerText = task;
   p.classList.add("p-task");
   div.append(p);
