@@ -14,10 +14,17 @@ function renderTasks(data) {
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("delete-btn");
     deleteButton.addEventListener("click", () => {
-      li.remove();
-      buttonDiv.remove();
-
+      const taskId = todo[0];
+      const taskTitle = todo[1];
+      const confirmation = confirm(`Do you want to delete task '${taskTitle}' with ID '${taskId}'?`);
+      
+      if (confirmation) {
+        deleteTask(taskId);
+        li.remove();
+        buttonDiv.remove();
+      }
     });
+    
 
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
@@ -48,14 +55,15 @@ function renderTasks(data) {
 async function getTasks() {
   const response = await fetch("http://127.0.0.1:5000/todo");
   const data = await response.json();
-  console.log(data); // Debugging purposes
+  console.log(data);
 
   renderTasks(data);
 }
 
-async function addTask(event) {
-  event.preventDefault();
-  const title = event.target.elements["todo-inputBox"].value;
+async function addTask() {
+  const title = document.getElementById("todo-inputBox").value;
+
+  console.log(title);
 
   const response = await fetch("http://127.0.0.1:5000/todo", {
     method: "POST",
@@ -64,13 +72,30 @@ async function addTask(event) {
   });
   const data = await response.json();
 
-  event.target.reset();
-
   renderTasks([data]);
   getTasks();
 
   alert("Task successfully added!");
 }
 
+async function deleteTask(id) {
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/todo/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete the task.");
+    }
+
+    alert("Task successfully deleted!");
+    getTasks();
+  } catch (error) {
+    console.error("Failed to delete task:", error);
+    alert("An error occurred while deleting the task.");
+  }
+}
 
 getTasks();
