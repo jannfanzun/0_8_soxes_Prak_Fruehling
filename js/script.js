@@ -16,28 +16,27 @@ function renderTasks(data) {
     deleteButton.addEventListener("click", () => {
       const taskId = todo[0];
       const taskTitle = todo[1];
-      const confirmation = confirm(`Do you want to delete task '${taskTitle}' with ID '${taskId}'?`);
-      
+      const confirmation = confirm(
+        `Do you want to delete task '${taskTitle}' with ID '${taskId}'?`
+      );
+
       if (confirmation) {
         deleteTask(taskId);
         li.remove();
         buttonDiv.remove();
       }
     });
-    
 
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
     editButton.classList.add("edit-btn");
 
-    editButton.addEventListener("click", function () {
-      const newTask = prompt("Edit task", li.innerText);
-
-      if (newTask === null || newTask.trim() === "") {
-        return;
+    editButton.addEventListener("click", () => {
+      const taskId = todo[0];
+      const newText = prompt("New text", li.textContent);
+      if (newText !== null && newText.trim() !== "") {
+        putTask(taskId, newText.trim());
       }
-
-      li.innerText = newTask;
     });
 
     const buttonDiv = document.createElement("div");
@@ -63,7 +62,9 @@ async function getTasks() {
 async function addTask() {
   const title = document.getElementById("todo-inputBox").value;
 
-  console.log(title);
+  if (title.trim() === "") {
+    return;
+  }
 
   const response = await fetch("http://127.0.0.1:5000/todo", {
     method: "POST",
@@ -71,6 +72,10 @@ async function addTask() {
     body: JSON.stringify({ Title: title }),
   });
   const data = await response.json();
+
+  if (title == "") {
+    return;
+  }
 
   renderTasks([data]);
   getTasks();
@@ -96,6 +101,19 @@ async function deleteTask(id) {
     console.error("Failed to delete task:", error);
     alert("An error occurred while deleting the task.");
   }
+}
+
+async function putTask(id, newText) {
+  console.log(id);
+  const response = await fetch(`http://127.0.0.1:5000/todo/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, Title: newText }),
+  });
+  if (response.ok) {
+    alert("Task edited successfully!");
+  }
+  getTasks();
 }
 
 getTasks();
