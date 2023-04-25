@@ -8,13 +8,15 @@ function renderTasks(data) {
     const todo = data[i];
     const li = document.createElement("li");
     li.classList.add("p.task");
-    li.textContent = todo.title;
+    li.textContent = todo[1];
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("delete-btn");
     deleteButton.addEventListener("click", () => {
       li.remove();
+      buttonDiv.remove();
+
     });
 
     const editButton = document.createElement("button");
@@ -43,7 +45,6 @@ function renderTasks(data) {
   }
 }
 
-
 async function getTasks() {
   const response = await fetch("http://127.0.0.1:5000/todo");
   const data = await response.json();
@@ -52,20 +53,18 @@ async function getTasks() {
   renderTasks(data);
 }
 
-
 async function addTask(event) {
   event.preventDefault();
-  const title = inputBox.value;
+  const title = event.target.elements["todo-inputBox"].value;
 
   const response = await fetch("http://127.0.0.1:5000/todo", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title: title }),
+    body: JSON.stringify({ Title: title }),
   });
-
   const data = await response.json();
 
-  inputBox.value = "";
+  event.target.reset();
 
   renderTasks([data]);
   getTasks();
@@ -73,5 +72,5 @@ async function addTask(event) {
   alert("Task successfully added!");
 }
 
-getTasks();
 
+getTasks();
