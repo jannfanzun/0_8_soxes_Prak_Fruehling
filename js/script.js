@@ -3,7 +3,9 @@ const form = document.querySelector("#todo-form");
 const list = document.querySelector("#todo-list");
 
 function renderTasks(data) {
+  const taskDiv = document.createElement("div");
   list.replaceChildren();
+
   for (let i = 0; i < data.length; i++) {
     const todo = data[i];
     const li = document.createElement("li");
@@ -17,7 +19,7 @@ function renderTasks(data) {
       const taskId = todo[0];
       const taskTitle = todo[1];
       const confirmation = confirm(
-        `Do you want to delete task '${taskTitle}' with ID '${taskId}'?`
+        `Do you want to delete the task '${taskTitle}'?`
       );
 
       if (confirmation) {
@@ -42,21 +44,34 @@ function renderTasks(data) {
     const buttonDiv = document.createElement("div");
     buttonDiv.appendChild(deleteButton);
     buttonDiv.appendChild(editButton);
-
-    const taskDiv = document.createElement("div");
     taskDiv.appendChild(li);
     taskDiv.appendChild(buttonDiv);
-
     list.appendChild(taskDiv);
+  }
+}
+
+async function fetchEmail() {
+  try {
+    const response = await fetch(
+      "https://todobackendjann.azurewebsites.net/user/email"
+    );
+    const email = await response.text();
+    const user = document.querySelector("#user");
+    user.textContent = email;
+  } catch (error) {
+    console.error(error);
   }
 }
 
 async function getTasks() {
   token = localStorage.getItem("token");
   console.log(token);
-  const response = await fetch("http://localhost:5000/todo", {
-    headers: { Authorization: "Bearer " + token },
-  });
+  const response = await fetch(
+    "https://todobackendjann.azurewebsites.net/todo",
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
+  );
   const data = await response.json();
   console.log(data);
 
@@ -64,34 +79,56 @@ async function getTasks() {
 }
 
 async function addTask() {
-  const title = document.getElementById("todo-inputBox").value;
+  const titleInput = document.getElementById("todo-inputBox");
+  const title = sanitizeInput(titleInput.value);
+
+  const token = localStorage.getItem("token");
+  console.log(token);
 
   if (title.trim() === "") {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/todo", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ Title: title }),
-  });
-  const data = await response.json();
+  const response = await fetch(
+    "https://todobackendjann.azurewebsites.net/todo",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ Title: title }),
+    }
+  );
 
-  if (title == "") {
-    return;
+  if (response.ok) {
+    alert("Task successfully added!");
+    location.reload();
   }
 
+  const data = await response.json();
   renderTasks([data]);
   getTasks();
+}
 
-  alert("Task successfully added!");
+function sanitizeInput(input) {
+  const sanitizedInput = input.replace(/[^a-zA-Z0-9äöüÄÖÜ., -]/g, "");
+  if (sanitizedInput !== input) {
+    alert("Invalid content!");
+    return "";
+  }
+  return sanitizedInput;
 }
 
 async function deleteTask(id) {
+  token = localStorage.getItem("token");
   try {
     const response = await fetch(`http://127.0.0.1:5000/todo/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
       body: JSON.stringify({ id }),
     });
 
@@ -108,10 +145,14 @@ async function deleteTask(id) {
 }
 
 async function putTask(id, newText) {
+  token = localStorage.getItem("token");
   console.log(id);
   const response = await fetch(`http://127.0.0.1:5000/todo/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
     body: JSON.stringify({ id, Title: newText }),
   });
   if (response.ok) {
@@ -120,4 +161,23 @@ async function putTask(id, newText) {
   getTasks();
 }
 
+function logout() {
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+
+function checkToken() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "login.html";
+  }
+}
+
 getTasks();
+checkToken();
+
+document.body.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    addTask();
+  }
+});

@@ -2,7 +2,13 @@ async function tryLogin() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  await fetch("http://localhost:5000/login", {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Invalid email format!");
+    return;
+  }
+
+  await fetch("https://todobackendjann.azurewebsites.net/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Email: email, Password: password }),
@@ -22,3 +28,9 @@ async function tryLogin() {
       alert(error.message);
     });
 }
+
+document.body.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    tryLogin();
+  }
+});
