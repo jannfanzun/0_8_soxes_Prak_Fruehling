@@ -16,7 +16,7 @@ async function tryRegister() {
     .then(async (response) => {
       if (response.status === 401) {
         throw new Error(
-          "Authentication failed! Email or password is incorrect!"
+          "Authentication failed! Email already exists!"
         );
       }
       await response;
