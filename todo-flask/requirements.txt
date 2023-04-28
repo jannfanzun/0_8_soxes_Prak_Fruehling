@@ -1,0 +1,5 @@
+PyJWT~=2.6.0
+Flask~=2.2.3
+Flask-Cors==3.0.10
+SQLAlchemy~=2.0.11
+PyMySQL==1.0.3
