@@ -29,6 +29,18 @@ function renderTasks(data) {
       }
     });
 
+    const completedBox = document.createElement("input");
+    completedBox.type = "checkbox";
+    completedBox.classList.add("checkbox");
+    completedBox.checked = todo.completed;
+    completedBox.addEventListener("change", () => {
+      todo.completed = completedBox.checked;
+      li.style.textDecoration = todo.completed ? "line-through" : "none";
+      if (todo.completed) {
+        alert("Task successfully completed!");
+      }
+    });
+
     const editButton = document.createElement("button");
     editButton.textContent = "Edit";
     editButton.classList.add("edit-btn");
