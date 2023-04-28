@@ -1,4 +1,4 @@
-async function tryLogin() {
+async function tryRegister() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -8,7 +8,7 @@ async function tryLogin() {
     return;
   }
 
-  await fetch("http://localhost:5000/login", {
+  await fetch("http://localhost:5000/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Email: email, Password: password }),
@@ -19,10 +19,9 @@ async function tryLogin() {
           "Authentication failed! Email or password is incorrect!"
         );
       }
-      const json = await response.json();
-      localStorage.setItem("token", json["token"]);
-      window.location.href = "index.html";
-      alert("Login successful!");
+      await response;
+      window.location.href = "login.html";
+      alert("Register successful!");
     })
     .catch((error) => {
       alert(error.message);
@@ -31,6 +30,6 @@ async function tryLogin() {
 
 document.body.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
-    tryLogin();
+    tryRegister();
   }
 });
