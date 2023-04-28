@@ -36,7 +36,7 @@ function renderTasks(data) {
     completedBox.addEventListener("change", () => {
       todo.completed = completedBox.checked;
       li.style.textDecoration = todo.completed ? "line-through" : "none";
-      li.style.color = todo.completed ? "#444" : "#000";
+      li.style.color = todo.completed ? "rgb(145, 145, 145)" : "#000";
       if (todo.completed) {
         alert("Task successfully completed!");
       }
