@@ -16,7 +16,7 @@ body {
 .checkbox{
     position: absolute;
     cursor: pointer;
-    left: 1%;
+    left: 5%;
   }
 
 #todo-form {
