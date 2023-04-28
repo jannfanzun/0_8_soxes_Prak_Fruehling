@@ -56,6 +56,7 @@ function renderTasks(data) {
     const buttonDiv = document.createElement("div");
     buttonDiv.appendChild(deleteButton);
     buttonDiv.appendChild(editButton);
+    buttonDiv.appendChild(completedBox);
     taskDiv.appendChild(li);
     taskDiv.appendChild(buttonDiv);
     list.appendChild(taskDiv);
