@@ -8,16 +8,14 @@ async function tryRegister() {
     return;
   }
 
-  await fetch("http://localhost:5000/user", {
+  await fetch("https://todobackendjann.azurewebsites.net/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Email: email, Password: password }),
   })
     .then(async (response) => {
       if (response.status === 401) {
-        throw new Error(
-          "Authentication failed! Email already exists!"
-        );
+        throw new Error("Authentication failed! Email already exists!");
       }
       await response;
       window.location.href = "login.html";

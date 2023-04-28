@@ -23,7 +23,7 @@ function renderTasks(data) {
       li.style.color = todo.completed ? "rgb(145, 145, 145)" : "#000";
       if (todo.completed) {
         alert("Task successfully completed!");
-      } else if (!todo.completed){
+      } else if (!todo.completed) {
         li.style.textDecoration = "none";
         li.style.color = "rgb(0, 0, 0)";
         completedBox.checked = false;
@@ -36,7 +36,7 @@ function renderTasks(data) {
       li.style.textDecoration = "line-through";
       li.style.color = "rgb(145, 145, 145)";
       completedBox.checked = true;
-    } 
+    }
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
@@ -82,9 +82,12 @@ function renderTasks(data) {
 async function getTasks() {
   token = localStorage.getItem("token");
   console.log(token);
-  const response = await fetch("http://localhost:5000/todo", {
-    headers: { Authorization: "Bearer " + token },
-  });
+  const response = await fetch(
+    "https://todobackendjann.azurewebsites.net/todo",
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
+  );
   const data = await response.json();
   console.log(data);
 
@@ -102,14 +105,17 @@ async function addTask() {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/todo", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({ Title: title }),
-  });
+  const response = await fetch(
+    "https://todobackendjann.azurewebsites.net/todo",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ Title: title }),
+    }
+  );
 
   if (response.ok) {
     alert("Task successfully added!");
@@ -134,14 +140,17 @@ function sanitizeInput(input) {
 async function deleteTask(id) {
   token = localStorage.getItem("token");
   try {
-    const response = await fetch(`http://localhost:5000/todo/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({ id }),
-    });
+    const response = await fetch(
+      `https://todobackendjann.azurewebsites.net/todo/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to delete the task.");
@@ -158,14 +167,17 @@ async function deleteTask(id) {
 async function putTask(id, newText, status_Task) {
   token = localStorage.getItem("token");
   console.log(id);
-  const response = await fetch(`http://localhost:5000/todo/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({ Title: newText, Status: status_Task }),
-  });
+  const response = await fetch(
+    `https://todobackendjann.azurewebsites.net/todo/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({ Title: newText, Status: status_Task }),
+    }
+  );
 
   getTasks();
 }
