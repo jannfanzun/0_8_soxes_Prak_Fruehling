@@ -72,6 +72,7 @@ function renderTasks(data) {
     const buttonDiv = document.createElement("div");
     buttonDiv.appendChild(deleteButton);
     buttonDiv.appendChild(editButton);
+
     li.appendChild(completedBox);
     taskDiv.appendChild(li);
     taskDiv.appendChild(buttonDiv);
@@ -195,16 +196,15 @@ function checkToken() {
 }
 
 function updateDateTime() {
-  const dateTimeElement = document.getElementById("datetime"); 
-  const now = new Date(); 
+  const dateTimeElement = document.getElementById("datetime");
+  const now = new Date();
 
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  const dateString = now.toLocaleDateString('de-DE', options); 
-  const timeString = now.toLocaleTimeString(); 
+  const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  const dateString = now.toLocaleDateString("de-DE", options);
+  const timeString = now.toLocaleTimeString();
 
   dateTimeElement.innerHTML = dateString + " - " + timeString;
 }
-
 
 updateDateTime();
 
