@@ -199,10 +199,16 @@ function logout() {
 
 function checkToken() {
   const token = localStorage.getItem("token");
+
   if (!token) {
+    // Token not found
     window.location.href = "login.html";
+    alert("Invalid token");
+    return;
   }
+
 }
+
 
 function updateDateTime() {
   const dateTimeElement = document.getElementById("datetime");
