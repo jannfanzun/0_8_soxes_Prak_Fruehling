@@ -194,6 +194,22 @@ function checkToken() {
   }
 }
 
+function updateDateTime() {
+  const dateTimeElement = document.getElementById("datetime"); 
+  const now = new Date(); 
+
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const dateString = now.toLocaleDateString('de-DE', options); 
+  const timeString = now.toLocaleTimeString(); 
+
+  dateTimeElement.innerHTML = dateString + " - " + timeString;
+}
+
+
+updateDateTime();
+
+setInterval(updateDateTime, 1000);
+
 getTasks();
 checkToken();
 
