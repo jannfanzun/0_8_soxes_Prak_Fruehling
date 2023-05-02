@@ -38,6 +38,14 @@ function renderTasks(data) {
       completedBox.checked = true;
     }
 
+    const dueDateInput = document.createElement("input");
+    dueDateInput.type = "date";
+    dueDateInput.value = todo["DueDate"];
+    dueDateInput.addEventListener("change", () => {
+      todo["DueDate"] = dueDateInput.value;
+      putTask(todo["id"], todo["Title"], todo.completed, todo["DueDate"]);
+    });
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.classList.add("delete-btn");
@@ -64,7 +72,7 @@ function renderTasks(data) {
       const newText = prompt("New text", li.textContent);
       const status_Task = todo["Status"];
       if (newText !== null && newText.trim() !== "") {
-        putTask(taskId, newText.trim(), status_Task);
+        putTask(taskId, newText.trim(), status_Task, todo["DueDate"]);
         alert("Task edited successfully!");
       }
     });
@@ -74,6 +82,7 @@ function renderTasks(data) {
     buttonDiv.appendChild(editButton);
 
     li.appendChild(completedBox);
+    li.appendChild(dueDateInput);
     taskDiv.appendChild(li);
     taskDiv.appendChild(buttonDiv);
     list.appendChild(taskDiv);
