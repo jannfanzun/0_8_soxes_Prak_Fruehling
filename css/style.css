@@ -81,7 +81,7 @@ body {
     cursor: pointer;
     display: flex;
     position: relative;
-    left: 78%;
+    left: 86%;
     justify-content: center;
     font-weight: bold;
     transform: translateY(-16%);
@@ -98,7 +98,7 @@ body {
     display: flex;
     position: relative;
     margin-left: 2%;
-    left: 82%;
+    left: 90%;
     margin-right: 2%;
     justify-content: center;
     font-weight: bold;

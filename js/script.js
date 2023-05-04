@@ -82,7 +82,6 @@ function renderTasks(data) {
     buttonDiv.appendChild(editButton);
 
     li.appendChild(completedBox);
-    li.appendChild(dueDateInput);
     taskDiv.appendChild(li);
     taskDiv.appendChild(buttonDiv);
     list.appendChild(taskDiv);

@@ -13,7 +13,7 @@ class User(Base):
     __tablename__ = 'User'
 
     id = Column(Integer, primary_key=True)
-    Email = Column(String(255))
+    Email = Column(String(255), unique=True)
     Password = Column(String(255))
 
     def __repr__(self):
@@ -25,7 +25,7 @@ class Todo(Base):
 
     id = Column(Integer, primary_key=True)
     Title = Column(String(255))
-    user_id = Column(Integer, ForeignKey(User.id))
+    user_id = Column(Integer, ForeignKey('User.id', ondelete='CASCADE'))
     Status = Column(Boolean)
 
     def __repr__(self):

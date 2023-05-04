@@ -8,8 +8,6 @@ from models import User, Todo, Schema
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from todoService import TodoService
-
 app = Flask(__name__)
 CORS(app)
 
@@ -25,14 +23,11 @@ def create_todo():
     req = request.get_json()
     user_id = decode_token(request.headers["Authorization"].split(" ")[1])
     if user_id is None:
-        print('warum ist er invalid')
         return jsonify({"error": "invalid token"}), 401
     req["user_id"] = user_id
-    print('ist er doch nicht invalid???')
     todo = Todo(Title=req["Title"], user_id=req["user_id"], Status=False)
     db.add(todo)
     db.commit()
-    print('ich will dass es funktioniert!')
     return jsonify({"id": todo.id, "Title": todo.Title, "user_id": todo.user_id, "Status": todo.Status})
 
 
@@ -56,7 +51,6 @@ def login():
     token = create_token(user.id)
     print('ich gebe das zurück')
     return jsonify({"token": token}), 200
-
 
 
 def check_password(password, hashed_password):
@@ -122,7 +116,6 @@ def create_user():
     db.commit()
 
     return jsonify({"id": user.id, "Email": user.Email, "Password": user.Password})
-
 
 
 def decode_token(token):
