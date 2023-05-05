@@ -8,7 +8,7 @@ async function tryRegister() {
     return;
   }
 
-  await fetch("https://todobackendjann.azurewebsites.net/user", {
+  await fetch("http://localhost:5000/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ Email: email, Password: password }),
